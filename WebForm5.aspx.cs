@@ -70,7 +70,15 @@ namespace CustomEmailValidation
             //verify otp
             var factorResponse = await sdkClient.UserFactors.ActivateFactorAsync(factorRequest, user.Id, emailFactor.Id);
 
-            Label1.Text = factorResponse.Status;            
+
+            if (factorResponse.Status == "ACTIVE")
+            {
+                Response.Redirect("WebForm2.aspx" + "?email=" + TextBox1.Text);
+            }
+            else
+            {
+                Label1.Text = factorResponse.Status;
+            }
         }
     }
 }

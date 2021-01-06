@@ -44,7 +44,15 @@ namespace CustomEmailValidation
                 {
                     if (itokenS.Claims.ToList()[i].Type == "email")
                     {
-                        userEmail = itokenS.Claims.ToList()[i].Value;
+                        var userParam = Request.QueryString["email"] + "";
+                        if (userParam.Length > 1)
+                        {
+                            userEmail = userParam;
+                        }
+                        else
+                        {
+                            userEmail = itokenS.Claims.ToList()[i].Value;
+                        }
                     }
                     else if (itokenS.Claims.ToList()[i].Type == "preferred_username")
                     {
