@@ -38,6 +38,27 @@ namespace CustomEmailValidation
                 var ihandler = new JwtSecurityTokenHandler();
                 var ijsonToken = ihandler.ReadToken(itokenStr);
                 var itokenS = ihandler.ReadToken(itokenStr) as JwtSecurityToken;
+                string userEmail = "";
+                string userName = "";
+                for (int i = 0; i < itokenS.Claims.ToList().Count ; i++)
+                {
+                    if (itokenS.Claims.ToList()[i].Type == "email")
+                    {
+                        userEmail = itokenS.Claims.ToList()[i].Value;
+                    }
+                    else if (itokenS.Claims.ToList()[i].Type == "preferred_username")
+                    {
+                        userName = itokenS.Claims.ToList()[i].Value;
+                    }
+                }
+
+                if (userEmail.Length > 1 && userName.Length > 1)
+                {
+                    if (userEmail == "dummy@email.com")
+                    {
+                        Response.Redirect("WebForm5.aspx?userName=" + userName);
+                    }
+                }
 
                 GridViewID.DataSource = itokenS.Claims.Select(x => new { Name = x.Type, Value = x.Value });
                 GridViewID.DataBind();
@@ -48,7 +69,6 @@ namespace CustomEmailValidation
 
                 GridViewAccess.DataSource = atokenS.Claims.Select(x => new { Name = x.Type, Value = x.Value });
                 GridViewAccess.DataBind();
-
             }
         }
 

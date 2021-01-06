@@ -31,7 +31,7 @@ namespace CustomEmailValidation
                 RedirectUri = ConfigurationManager.AppSettings["RedirectUri"],
                 PostLogoutRedirectUri = ConfigurationManager.AppSettings["PostLogoutUri"],
                 AuthorizationServerId = ConfigurationManager.AppSettings["AuthZserver"],
-                Scope = new List<string> { "openid", "profile" },
+                Scope = new List<string> { "openid", "profile", "email" },
                 LoginMode = LoginMode.SelfHosted,
             });
         }
